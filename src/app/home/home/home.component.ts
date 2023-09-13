@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/Services/usuarios.service';
 import { Cargos, Departamentos } from '../../Interfaces/Usuarios';
+import { MatDialog } from '@angular/material/dialog';
+import { UsuarioComponent } from 'src/app/usuario/usuario.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ export class HomeComponent {
   public Cargos : any[]=[];
   public users : any[] = [];
 
-  displayedColumns: string[] = ['cedula', 'nombre', 'apellido', 'direccion','telefono','estado', 'medido','acciones'];
+  displayedColumns: string[] = ['Usuario', 'Nombres', 'Apellidos', 'Departamento','Cargo','Email','Acciones'];
   dataSource = this.Departamentos;
 
   departament : Departamentos = {
@@ -34,7 +36,8 @@ export class HomeComponent {
 
   constructor(
     private usuarioService: UsuariosService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
   ){ }
 
 
@@ -57,5 +60,24 @@ export class HomeComponent {
       console.log(resp)
       this.Cargos=resp
     })
+  }
+  crearUsuario(){
+    const dialogRef = this.matDialog.open(UsuarioComponent, {
+      width: '580px',
+      height:'450px',
+      panelClass: 'fondo',
+      data: null
+    })
+    dialogRef.afterClosed().subscribe(() => {
+    this.obtenerUsers()
+      });
+  }
+
+  obtenerUsers(){
+    this.users = []
+    this.usuarioService.getUsuarios().subscribe(resp=>{
+      console.log(resp)
+      this.users = resp
+    });
   }
 }

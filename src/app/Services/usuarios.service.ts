@@ -23,4 +23,18 @@ export class UsuariosService {
     .set('Type-content','aplication/json')
     return this.http.get<any>(this.urlBase+this.contoladorUsers+'GetAllCargo');
   }
+
+  /*Usuarios */
+  postUsuarios(datosCliente:any){
+    let header = new HttpHeaders()
+    .set('Type-content','aplication/json')
+    return this.http.post<any>(this.urlBase+this.contoladorUsers+'RegistrarUsuario',datosCliente) 
+  }
+  
+  getUsuarios(){
+    let header = new HttpHeaders()
+    .set('Type-content','aplication/json')
+    return this.http.get<any>(this.urlBase+this.contoladorUsers+'GetAllUsuarios')
+  }
+
 }
