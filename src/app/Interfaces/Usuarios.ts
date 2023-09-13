@@ -23,6 +23,6 @@ export interface Cargos{
     IdCargos : number;
     codigoCargo : string;
     nombreCargo : string;
-    activo : string;
+    activo : boolean;
     idUsuarioCreacion : number;
 }
